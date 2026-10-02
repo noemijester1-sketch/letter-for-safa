@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A Letter for Safa</title>
+  <style>
+    body {
+      background-color: #f9f6f0; /* Warm cream background */
+      color: #333333;           /* Charcoal text for clear, comfortable reading */
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 24px;
+      box-sizing: border-box;
+    }
+
+    .letter-card {
+      background-color: #ffffff;  /* Warm white paper card */
+      border: 1px solid #e2ded4;  /* Soft warm border */
+      border-radius: 16px;
+      padding: 44px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(85, 113, 83, 0.08); /* Gentle sage tint shadow */
+      position: relative;
+    }
+
+    .start-btn {
+      display: block;
+      margin: 0 auto 20px auto;
+      padding: 14px 28px;
+      font-size: 1.05rem;
+      color: #ffffff;
+      background-color: #557153;  /* Warm sage green */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    .start-btn:hover {
+      background-color: #435b41;  /* Slightly deeper sage on hover */
+      transform: translateY(-1px);
+    }
+
+    #letter-content {
+      font-size: 1.1rem;
+      line-height: 1.85;
+      white-space: pre-wrap; /* Keeps line breaks intact */
+      min-height: 150px;
+    }
+
+    /* Typing cursor effect */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background-color: #557153;  /* Sage green cursor */
+      vertical-align: bottom;
+      margin-left: 2px;
+      animation: blink 0.8s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="letter-card">
+    <button id="start-btn" class="start-btn"> Open Letter <3 </button>
+    <div id="letter-content"></div>
+  </div>
+
+  <!-- Audio file set to christmastree.mp3 -->
+  <audio id="bg-music" loop>
+    <source src="christmastree.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const letterText = `Dear Safa,
+
+I wanted to write you this letter as a little reminder to you whenever you’re stressed or feeling down to remind you of all the good things in your life and make sure you know how loved you are.
+
+I know some days are harder than others, but there’s still so many moments to think about and look forward to.
+
+To remind you of some of my favourites, our chai and carrot cake days, our long walks around the city to go get late night chai and gossip with the uncles, our food tour of London at christmas last year, our cafe study dates, our ice cream taste test even with all of the awful flavours, our endless dinner dates, our sleepovers…
+
+I can’t wait for our first holiday together soon, even more cafe and dinner dates, seeing you graduate next year, reviving our baking account, autumn walks, reading dates, seeing where life takes us both…
+
+I am forever grateful for you, for your support, your advice, especially when it’s the brutal honest truth I sometimes need to hear, your generosity and all the care you always give, even when sometimes you give too much. I can honestly say I have gotten through so many parts of my life because of you and your support and I am eternally grateful.
+
+I hope you know how loved you are, of course by your family, but also by me. I hope to always bring a smile across your face or just sit with you when you’re stressed or sad but just always remember, I am here with you, and I love you endlessly, always.
+
+Love you forever,
+Noemi`;
+
+    const letterElement = document.getElementById("letter-content");
+    const startBtn = document.getElementById("start-btn");
+    const bgMusic = document.getElementById("bg-music");
+
+    // Speed: 85ms per character (higher number = slower typing speed)
+    const typingSpeed = 85; 
+    let charIndex = 0;
+
+    function typeLetter() {
+      if (charIndex < letterText.length) {
+        letterElement.innerHTML = letterText.substring(0, charIndex + 1) + '<span class="cursor"></span>';
+        charIndex++;
+        
+        // Auto-scroll smooth as text grows
+        window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+        setTimeout(typeLetter, typingSpeed);
+      } else {
+        letterElement.innerHTML = letterText;
+      }
+    }
+
+    startBtn.addEventListener("click", () => {
+      bgMusic.volume = 0.35;
+      bgMusic.play();
+
+      startBtn.style.display = "none";
+      typeLetter();
+    });
+  </script>
+
+</body>
+</html>
